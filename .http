@@ -1,0 +1,24 @@
+GET http://localhost:8080/produto/busca-todos
+
+
+POST http://localhost:8080/produto/save
+Content-Type: application/json
+
+{
+    "nome": "Produto 1",
+    "descricao": "Descrição do produto 1",
+    "preco": 25.0
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
