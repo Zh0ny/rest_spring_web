@@ -13,7 +13,7 @@ import com.learnproject.spring_web.exception.ProductNullException;
 import com.learnproject.spring_web.exception.ProductPriceException;
 
 @ControllerAdvice
-public class ProdutoControllerAdvise extends ResponseEntityExceptionHandler {
+public class ProdutoControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> CapturaError(Exception e) {
