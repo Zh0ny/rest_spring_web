@@ -73,6 +73,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+		String path = request.getRequestURI();
+		// Ignorar validação de JWT para endpoints públicos
+		return path.startsWith("/auth/signin") || path.startsWith("/actuator");
+	}
+
 	
 
 }

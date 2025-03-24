@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.learnproject.spring_web.auth.service.UserService;
 import com.learnproject.spring_web.config.jwt.JwtAuthenticationEntryPoint;
 import com.learnproject.spring_web.config.jwt.JwtRequestFilter;
 
@@ -17,12 +16,10 @@ import com.learnproject.spring_web.config.jwt.JwtRequestFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserService userService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtRequestFilter jwtRequestFilter;
 
-    public SecurityConfig(UserService userService, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtRequestFilter jwtRequestFilter) {
-        this.userService = userService;
+    public SecurityConfig(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtRequestFilter jwtRequestFilter) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtRequestFilter = jwtRequestFilter;
     }
@@ -38,6 +35,7 @@ public class SecurityConfig {
         httpSecurity.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/signin").permitAll()
+                .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/produto/**").hasAnyRole("ADMIN")
                 .requestMatchers("/pedido/**").authenticated()
                 .anyRequest().authenticated())
